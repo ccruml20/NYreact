@@ -26,7 +26,7 @@ class Main extends Component {
   handleSubmit(e){
     console.log("full state obj", this.state);
     e.preventDefault();
-    const { searchTerm, begin_date, end_date, page } = this.state;
+    const { searchTerm, begin_date, end_date} = this.state;
     let start_date = begin_date;
     let final_date = end_date;
     if (begin_date === '') {

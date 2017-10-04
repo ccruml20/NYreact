@@ -2,16 +2,16 @@ require('dotenv').config({path:'./config/.env'});
 const request = require('request');
 const express = require('express');
 const bodyparser = require('body-parser');
-const articleRouter = require('./routes/articles');
+const router = require('./routes/articles');
 const mongoose = require('mongoose');
 
 const app = express();
 port = 3001;
 
 app.use(bodyparser.json());
-app.use('/api/saved', articleRouter);
+app.use('/api/saved', router);
 
-mongoose.connect("mongodb://localhost/nytreact");
+mongoose.createConnection("mongodb://localhost/nytreact");
 var db = mongoose.connection;
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);
@@ -33,8 +33,12 @@ app.post('/api/search', function(req, res){
      request(options, function(err, results, body){
        res.json(results);
      });
-  console.log(req.body);
+  console.log(req.body,"Im the furkin' requst body");
 });
+
+// app.post('/api/saved', function(req, res){
+//   console.log(req.body, "/////////////////////////////")
+// })
 
 app.listen(port, function(){
   console.log("Your listening to port", port)

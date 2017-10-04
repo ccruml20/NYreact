@@ -5,6 +5,7 @@ module.exports = {
     Article.find((err, articles)=>{
       if(!err){
         return cb(null, articles)
+        console.log(articles, "articles for meeeeeeeeeeeee")
       }
       cb(err, null)
     })
@@ -13,6 +14,7 @@ module.exports = {
     const article = new Article(articleToSave);
     article.save().then((item)=>{
       return cb(null, item)
+
     })
     .catch((err)=>{
       cb(err, null);
