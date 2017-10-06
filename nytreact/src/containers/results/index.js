@@ -57,7 +57,7 @@ export default class Results extends React.Component {
 
     return (
       <div className="container">
-        <div className="row">
+        {/* <div className="row"> */}
           <div className="col-md-12">
             <h3 style={{textAlign: 'left'}}>Results</h3>
 
@@ -87,7 +87,7 @@ export default class Results extends React.Component {
                         <img  style={headlineImage}  className="" src={imageSrc} alt="" />
 
                       </div>
-                      <div className='col-md-8'>
+                      <div className='col-md-6'>
                         <h4 style={{fontSize: '22px', color: 'blue', textAlign: 'left', fontWeight: "500"}} className='col-md-10-offset-1'>
                           {article.headline.main}
                         </h4>
@@ -119,7 +119,7 @@ export default class Results extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        {/* </div> */}
 
       </div>);
     }
