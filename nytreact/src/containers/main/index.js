@@ -3,8 +3,8 @@ import moment from 'moment';
 
 import Results from '../results';
 import Form from '../../components/form';
-import Saved from '../save';
 import Header from '../../components/header';
+import Saved from '../save';
 
 
 class Main extends Component {
@@ -15,13 +15,15 @@ class Main extends Component {
       records: 5,
       begin_date: '',
       end_date: '',
-      articles: []
+      articles: [],
+      saved_records: [],
     }
-  this.handleSubmit = this.handleSubmit.bind(this);
-  this.handleSearchChange = this.handleSearchChange.bind(this);
-  this.handleRecordChange = this.handleRecordChange.bind(this);
-  this.handleStartYearChange = this.handleStartYearChange.bind(this);
-  this.handleEndYearChange = this.handleEndYearChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleRecordChange = this.handleRecordChange.bind(this);
+    this.handleStartYearChange = this.handleStartYearChange.bind(this);
+    this.handleEndYearChange = this.handleEndYearChange.bind(this);
+    this.handleSavedArticles = this.handleSavedArticles.bind(this);
   }
   handleSubmit(e){
     console.log("full state obj", this.state);
@@ -33,7 +35,7 @@ class Main extends Component {
       start_date = moment().format('YYYYMMDD');
     }
     if (end_date === ''){
-      final_date = moment().add(1, 'y').format('YYYYMMDD');
+      final_date = moment().add(2, 'y').format('YYYYMMDD');
     }
     const searchQuery = {
       q: searchTerm,
@@ -53,15 +55,19 @@ class Main extends Component {
     })
     .then((response)=> {
       const body = JSON.parse(response.body);
+      console.log(body, "im the bodyyyyyyy");
       const articles = body.response.docs;
+      console.log(articles,"___________________________articles main.js");
       this.setState({
         articles
-      })
-      console.log(articles);
+      });
     })
     .catch((err)=>{
       console.log(err);
     })
+  }
+  handleSavedArticles(saved_records){
+    this.setState({ saved_records })
   }
   handleSearchChange(e){
     this.setState({ searchTerm: e.target.value});
@@ -81,6 +87,8 @@ class Main extends Component {
     return (
       <div>
         <Header />
+
+
         <Form
           handleSubmit={this.handleSubmit}
           handleSearchChange={this.handleSearchChange}
@@ -92,10 +100,13 @@ class Main extends Component {
           startYear={begin_date}
           endYear={end_date}
         />
+        <Saved saved_records={this.state.saved_records}
+        />
         <Results
           articles={this.state.articles}
+          handleSavedArticles={this.handleSavedArticles}
         />
-        <Saved  />
+
       </div>
     );
   }

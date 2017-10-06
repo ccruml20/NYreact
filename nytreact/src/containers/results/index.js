@@ -1,66 +1,126 @@
 import React from 'react';
 
+
 export default class Results extends React.Component {
   constructor(props){
-  super(props);
-  this.handleSubmit = this.handleSubmit.bind(this);
- }
- handleSubmit(e, article){
-  e.preventDefault();
-  const articleToSave = {
-    title: article.headline.main,
-    date: article.pub_date,
-    url: article.uri
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  console.log(articleToSave)
-  fetch ("/api/saved", {
-  method: "PUT",
-  headers: {
-    "content-type": "application/json"
-  },
-  body: JSON.stringify(articleToSave)
-})
-.then((result)=>{
-  console.log(result, "Im the mother lovin' result");
-  return result.json()
-})
-.then((response)=>{
-  const body = JSON.parse(response.body);
-  console.log(body, "==========================================");
-}).then((err)=>{
-  throw err
-})
- };
+  handleSubmit(e, article, props){
+    console.log(this.props.handleSavedArticles)
+    e.preventDefault();
+    const articleToSave = {
+      title: article.headline.main,
+      date: article.pub_date,
+      url: article.uri
+    }
+    console.log(articleToSave)
+    fetch ("/api/saved", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(articleToSave)
+    })
+    .then((result)=>{
+      console.log(result, "Im the mother lovin' result");
+      return result.json()
+    })
+    .then((response)=>{
+      console.log(response, "==========================================");
+    }).then((err)=>{
+      return err
+    })
+
+
+  };
+
+  componentDidMount(props) {
+    console.log(this.props.handleSavedArticles, "=+=++=++++===++==+++++++++++++==");
+    console.log("this is the props <<<<<<<<<<<")
+    console.log(this.props)
+    fetch('/api/saved').then((results)=>{
+      return results.json()
+    })
+    .then((response)=>{
+      const saved_records = response;
+      this.props.handleSavedArticles(saved_records);
+      console.log('my sick ass results=============', saved_records);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
 
   render() {
 
     return (
       <div className="container">
-        Results
-        {this.props.articles.map((article,i)=>{
-          // let imageSrc = article.multimedia[2].legacy.thumbnail
-          // console.log(imageSrc)
-          // let headlineStyle = {
-          //   color: 'blue',
-          //   backgroundImage: 'url(' + imageSrc + ')',
-          // }
-          // console.log(JSON.stringify(article.multimedia[2].url)
+        <div className="row">
+          <div className="col-md-12">
+            <h3 style={{textAlign: 'left'}}>Results</h3>
 
-          return (
-            <div key={`${article.headline.main}-${i}`}>
-              <div className="row" >
-                <div className='col-md-1'>
-                  <button onClick={(e)=>this.handleSubmit(e,article)} value={article} className="btn-default">Save</button>
+            {this.props.articles.map((article,i)=>{
+              let imageSrc = "https://static01.nyt.com/" + article.multimedia[1].url
+
+              let headlineStyle = {
+                backgroundColor: '#eee',
+                padding: '10px',
+                border: "1px solid #9d9d9d"
+              }
+              let headlineImageRow = {
+                paddingTop: '12px'
+              }
+              let headlineImage = {
+                border: "3px solid #9d9d9d",
+                width: "300px",
+              }
+
+              // console.log(JSON.stringify(article.multimedia[2].url))
+
+              return (
+                <div key={`${article.headline.main}-${i}`}>
+                  <div  style={headlineStyle} className="row" >
+                    <div>
+                      <div style={headlineImageRow} className='col-md-4'>
+                        <img  style={headlineImage}  className="" src={imageSrc} alt="" />
+
+                      </div>
+                      <div className='col-md-8'>
+                        <h4 style={{fontSize: '22px', color: 'blue', textAlign: 'left', fontWeight: "500"}} className='col-md-10-offset-1'>
+                          {article.headline.main}
+                        </h4>
+                        <p className="col-md-12">
+                          {article.snippet}
+                        </p>
+                        <p style={{fontSize: '10px', marginTop: '16px'}} className='col-md-6'>
+                          <small>
+                            {article.byline.original}
+                          </small>
+                        </p>
+                        <div className='col-md-6' style={{textAlign: 'right', marginTop: '16px'}}>
+                          <a style={{color: 'blue',width: '120px',height: "35px",fontSize: "16px"}}
+                             onClick={(e)=>this.handleSubmit(e,article)}  value={article}
+                              >Save Article</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br ></br>
+                  <div style={{borderBottom: "2px solid #EEE"}}></div>
                 </div>
-                <div className='col-md-11'>
-                  {article.headline.main}
-                </div>
-                <br></br>
+              )
+            })}
+          </div>
+          <div>
+            <div>
+              <div>
               </div>
             </div>
+          </div>
+        </div>
 
-          )
-        })}
       </div>);
     }
   }

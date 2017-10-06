@@ -2,26 +2,22 @@ import React, { Component } from 'react';
 
 
 class Saved extends Component {
-  constructor() {
-    super();
-    this.state = {
-      savedArticles: []
-    }
-  }
-  componentDidMount() {
-    fetch('/api/saved').then((results)=>{
-      return results.json()
-    })
-    .then((response)=>{
-      console.log('my sick ass results=============', response)
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+  constructor(props) {
+    super(props);
   }
   render() {
     return (
-      <div></div>
+      <div style={{height: "390px", overflow: 'scroll'}} className='col-md-6-offset-1'>
+        <h3 style={{textAlign: 'center'}}>Saved</h3>
+        {this.props.saved_records.map((saved_record, i)=>{
+          console.log('saved_records', saved_record);
+          return (
+            <div key={`${saved_record}-${i}`}>
+              {saved_record.title}
+            </div>
+          )
+        })}
+      </div>
     );
   }
 }

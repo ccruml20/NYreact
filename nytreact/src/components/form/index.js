@@ -2,9 +2,9 @@ import React from 'react';
 
 const Form = (props) => {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-8">
+    <div style={{marginLeft: '95px'}} className="col-md-4">
+      <div >
+        <div >
           <form onSubmit={props.handleSubmit}>
             <div className="form-group">
               <label html="exampleInputEmail1">Search Term</label>
