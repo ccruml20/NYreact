@@ -56,10 +56,10 @@ export default class Results extends React.Component {
   render() {
 
     return (
-      <div className="container">
+      <div>
         {/* <div className="row"> */}
-          <div className="col-md-12">
-            <h3 style={{textAlign: 'left'}}>Results</h3>
+          <div style={{backgroundColor: 'rgba(119, 119, 119, 0.66)'}} className="col-md-12">
+            <h3 style={{color: '#f5f4f2', textAlign: 'center'}}>Results</h3>
 
             {this.props.articles.map((article,i)=>{
               let imageSrc = "https://static01.nyt.com/" + article.multimedia[1].url
@@ -88,7 +88,7 @@ export default class Results extends React.Component {
 
                       </div>
                       <div className='col-md-6'>
-                        <h4 style={{fontSize: '22px', color: 'blue', textAlign: 'left', fontWeight: "500"}} className='col-md-10-offset-1'>
+                        <h4 style={{fontSize: '22px', color: '#337ab7', textAlign: 'left', fontWeight: "500"}} className='col-md-10-offset-1'>
                           {article.headline.main}
                         </h4>
                         <p className="col-md-12">
@@ -100,7 +100,7 @@ export default class Results extends React.Component {
                           </small>
                         </p>
                         <div className='col-md-6' style={{textAlign: 'right', marginTop: '16px'}}>
-                          <a style={{color: 'blue',width: '120px',height: "35px",fontSize: "16px"}}
+                          <a style={{color: '#337ab7',width: '120px',height: "35px",fontSize: "16px"}}
                              onClick={(e)=>this.handleSubmit(e,article)}  value={article}
                               >Save Article</a>
                         </div>

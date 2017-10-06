@@ -2,7 +2,7 @@ import React from 'react';
 
 const Form = (props) => {
   return (
-    <div style={{marginLeft: '95px'}} className="col-md-4">
+    <div style={{backgroundColor: 'rgb(251, 250, 246)'}} className="col-md-4">
       <div >
         <div >
           <form onSubmit={props.handleSubmit}>

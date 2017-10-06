@@ -85,7 +85,7 @@ class Main extends Component {
     const { searchTerm, records, begin_date, end_date}=this.state
     console.log('this is the state', this.state);
     return (
-      <div>
+      <div style={{backgroundColor: 'rgba(128,116,100,.17)'}}>
         <Header />
 
 
