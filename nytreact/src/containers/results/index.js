@@ -58,7 +58,7 @@ export default class Results extends React.Component {
     return (
       <div>
         {/* <div className="row"> */}
-          <div style={{backgroundColor: 'rgba(119, 119, 119, 0.66)'}} className="col-md-12">
+          <div style={{backgroundColor: 'rgba(119, 119, 119, 1)'}} className="col-md-12">
             <h3 style={{color: '#f5f4f2', textAlign: 'center'}}>Results</h3>
 
             {this.props.articles.map((article,i)=>{
